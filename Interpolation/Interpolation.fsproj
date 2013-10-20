@@ -42,7 +42,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Script.fsx" />
+    <None Include="Tests.fsx" />
     <Compile Include="Interpolation.fs" />
   </ItemGroup>
   <PropertyGroup>
