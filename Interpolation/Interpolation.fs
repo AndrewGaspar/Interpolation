@@ -10,13 +10,17 @@ module Interpolation =
 
         let rec dividedDifference i k = 
             let j = k-i;
-            if i = k then snd data.[i];
-            else if dividedDifferences.[i].[j].IsSome then dividedDifferences.[i].[j].Value;
-            else 
-                dividedDifferences.[i].[j] <- 
-                    Some (((dividedDifference (i+1) k) - (dividedDifference i (k-1))) 
-                        / (fst data.[k] - fst data.[i]));
+            match dividedDifferences.[i].[j] with
+            | Some(coefficient) -> coefficient
+            | None ->
+                dividedDifferences.[i].[j] <- Some (
+                    if i = k then snd data.[i];
+                    else 
+                        (((dividedDifference (i+1) k) - (dividedDifference i (k-1))) 
+                            / (fst data.[k] - fst data.[i]));
+                    )
                 dividedDifferences.[i].[j].Value
+                        
 
         let a n = dividedDifference 0 n
         
