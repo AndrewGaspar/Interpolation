@@ -3,11 +3,20 @@
 module Interpolation =
     let interpolate (dataPoints: seq<float * float>) =
         let data = dataPoints |> Seq.toArray
+
+        let dividedDifferences: float option [] [] 
+            =   Array.init data.Length 
+                    (fun i -> Array.create (data.Length-i) None);
+
         let rec dividedDifference i k = 
-            if i = k then (snd data.[i]);
+            let j = k-i;
+            if i = k then snd data.[i];
+            else if dividedDifferences.[i].[j].IsSome then dividedDifferences.[i].[j].Value;
             else 
-                ((dividedDifference (i+1) k) - (dividedDifference i (k-1))) 
-                    / (fst data.[k] - fst data.[i])
+                dividedDifferences.[i].[j] <- 
+                    Some (((dividedDifference (i+1) k) - (dividedDifference i (k-1))) 
+                        / (fst data.[k] - fst data.[i]));
+                dividedDifferences.[i].[j].Value
 
         let a n = dividedDifference 0 n
         
