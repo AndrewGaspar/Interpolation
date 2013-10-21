@@ -5,12 +5,20 @@
 open NumericalAnalysis.Interpolation
 open System
 
-let interpolatedSin =
-    seq { for i in 0..16 -> float i * Math.PI / 8.0 } 
-        |> Seq.map (fun x -> (x, Math.Sin x)) 
-        |> interpolate
+let interpolatedSin = interpolateFunc (0.0, 2.0*Math.PI) 16 Math.Sin
 
 let testValues n =
-    seq { for i in 0..n -> float i * Math.PI / (float n / 2.0) } 
+    seq { 0..n }
+        |> Seq.map (fun i -> float i * Math.PI / (float n / 2.0))
         |> Seq.map (fun x -> (x, interpolatedSin x, Math.Sin x))
         |> Seq.iter (fun (x,x1,x2) -> printfn "I(%f) = %f | S(%f) = %f | |I - S| = %f" x x1 x x2 (Math.Abs (x1 - x2)))
+
+//[ [1.3; 0.62; -0.522]; [1.6; 0.455; -0.569] ]
+//    |> Seq.map List.toSeq
+//    |> hermiteCoefficients
+//    |> Seq.iter (printfn "%f")
+
+[ [-1.0; 2.0; -8.0; 56.0]; [0.0; 1.0; 0.0; 0.0]; [1.0; 2.0; 8.0; 56.0] ]
+    |> Seq.map List.toSeq
+    |> hermiteCoefficients
+    |> Seq.iter (printfn "%f")
