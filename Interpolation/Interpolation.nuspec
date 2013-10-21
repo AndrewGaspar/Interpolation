@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Interpolation.dll</id>
+    <version>0.1</version>
+    <title>F# Hermite Interpolation</title>
+    <authors>Andrew Gaspar</authors>
+    <owners>Andrew Gaspar</owners>
+    <projectUrl>https://github.com/AndrewGaspar/Interpolation</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>An F# module for interpolation sets of data into functions that are fairly accurate over a certain range. Uses the Hermite interpolation method.</description>
+    <releaseNotes>Generate hermite coefficients, hermite function, interpolate a function over a given range, and more!</releaseNotes>
+    <copyright>Copyright 2013 Andrew Gaspar</copyright>
+    <tags>Numerical Analysis Interpolation Hermite F# Functional</tags>
+  </metadata>
+</package>
