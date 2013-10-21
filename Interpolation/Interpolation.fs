@@ -74,6 +74,19 @@ module Interpolation =
 
         p 0
 
+    let hermite' (fSeq: seq<seq<float>>) =
+        let data, order, coefficients = fSeq |> hermiteFundamentals;
+        
+        let rec p n =
+            if n = coefficients.Length - 1 then (fun x -> coefficients.[n])
+            else (fun x -> (x - data.[n / order].[0])*(p (n+1) x) + coefficients.[n])
+
+        let rec p' n =
+            if n = coefficients.Length - 1 then (fun _ -> 0.0)
+            else (fun x  -> (p' (n+1) x)*(x - data.[n/order].[0]) + (p (n+1) x))
+
+        p' 0
+
     let hermiteEquation (fSeq: seq<seq<float>>) =
         let data, order, coefficients = fSeq |> hermiteFundamentals;
         
