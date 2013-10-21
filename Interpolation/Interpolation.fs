@@ -41,7 +41,7 @@ module Interpolation =
             | Some(coefficient) -> coefficient
             | None ->
                 dividedDifferences.[i].[j] <- Some (
-                    if j < order && i/order = k/order then
+                    if i/order = k/order then
                         fArray.[i/order].[j+1] / facOrders.[j]
                     else divDif i k)
                 dividedDifferences.[i].[j].Value
