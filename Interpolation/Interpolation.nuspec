@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Interpolation.dll</id>
+    <id>Interpolation</id>
     <version>0.1</version>
     <title>F# Hermite Interpolation</title>
     <authors>Andrew Gaspar</authors>
