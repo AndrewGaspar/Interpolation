@@ -59,14 +59,27 @@ module Interpolation =
             |> seqSeqToArrayArray
             |> hermiteCoefficientsArr
 
-    let hermite (fSeq: seq<seq<float>>) =
-        let data = fSeq |> seqSeqToArrayArray;
+    let private hermiteFundamentals (fSeq: seq<seq<float>>) =
+        let data = fSeq |> seqSeqToArrayArray
         let order = getOrder data
-        let coefficients = data |> hermiteCoefficientsArr |> Seq.toArray;
+        let coefficients = data |> hermiteCoefficientsArr |> Seq.toArray
+        (data, order, coefficients)
+
+    let hermite (fSeq: seq<seq<float>>) =
+        let data, order, coefficients = fSeq |> hermiteFundamentals;
         
         let rec p n =
-            if n = data.Length - 1 then (fun x -> coefficients.[n])
+            if n = coefficients.Length - 1 then (fun x -> coefficients.[n])
             else (fun x -> (x - data.[n / order].[0])*(p (n+1) x) + coefficients.[n])
+
+        p 0
+
+    let hermiteEquation (fSeq: seq<seq<float>>) =
+        let data, order, coefficients = fSeq |> hermiteFundamentals;
+        
+        let rec p n =
+            if n = coefficients.Length - 1 then coefficients.[n].ToString()
+            else sprintf "(%s)*(x - %f)+%f" (p (n+1)) data.[n / order].[0] coefficients.[n]
 
         p 0
 

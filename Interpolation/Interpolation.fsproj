@@ -44,6 +44,7 @@
   <ItemGroup>
     <None Include="Tests.fsx" />
     <Compile Include="Interpolation.fs" />
+    <None Include="P2.fsx" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">12</MinimumVisualStudioVersion>
